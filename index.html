@@ -20,7 +20,7 @@
 			else
 				wait.innerHTML += ".";
 		}, 500);
-		var socket = io('http://lily7.duckdns.org:3000/');
+		var socket = io('https://lily7.duckdns.org:3000/');
 
 		socket.on('ping', function (data) {
 			console.log('Returned from server: ' + data.msg);
