@@ -22,8 +22,8 @@
     function onScanSuccess(decodedText, decodedResult) {
         $("#reader").hide();
         
+        $(location).attr('href',decodedText);
 
-        window.location.replace(decodedText);
        
         // Handle on success condition with the decoded text or result.
 
