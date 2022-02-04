@@ -1,0 +1,97 @@
+<html>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400&display=swap" rel="stylesheet">
+<body>
+
+
+    <div class="scanner">
+        <center>
+            <h1>QR Scan</h1>
+        </center>
+        <div style="width: 600px;border-radius: 25px;" id="reader">
+        </div>
+
+
+</body>
+<script src="html5-qrcode.min.js"></script>
+<script src="jquery.js"></script>
+
+<script>
+
+    function onScanSuccess(decodedText, decodedResult) {
+        $("#reader").hide();
+        
+
+        window.location.replace(decodedText);
+       
+        // Handle on success condition with the decoded text or result.
+
+
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", { fps: 30, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess);
+</script>
+
+<style>
+    h1 {
+        font-size: 50px;
+        font-family: 'Rowdies', cursive;
+	
+    }
+    body {
+        background: #4c268f;
+        color: #99eeb4;
+    }
+
+    #reader {
+        background-color: wheat;
+    }
+
+    .scanner {
+        margin: 0;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)
+    }
+
+    button {
+
+        background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        flex-shrink: 0;
+        font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        height: 4rem;
+        padding: 0 1.6rem;
+        text-align: center;
+        text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+        transition: all .5s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button:hover {
+        box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+        transition-duration: .1s;
+    }
+
+    @media (min-width: 768px) {
+        .button-36 {
+            padding: 0 2.6rem;
+        }
+    }
+
+    
+</style>

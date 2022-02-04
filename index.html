@@ -1,53 +1,108 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Welcome!</title>
-
+	<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400&display=swap" rel="stylesheet">
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/socket.io-client/socket.io.js"></script>
+	
 	<script src="bower_components/jquery-qrcode/jquery.qrcode.min.js"></script>
 
 	<script>
-	  var socket = io('http://localhost:3000/');
 
-	  socket.on('ping', function (data) {
-	    console.log('Returned from server: ' + data.msg);
-	  });
+		var dots = window.setInterval(function () {
+			var wait = document.getElementById("wait");
+			if (wait.innerHTML.length > 3)
+				wait.innerHTML = "";
+			else
+				wait.innerHTML += ".";
+		}, 500);
+		var socket = io('http://192.168.47.123:3000/');
 
-	  socket.on('sync', function (data) {
-	    console.log('Returned from server: ' + data.ok);
-	    if(data.ok==='true') {
-	    	$('#m').text('Received a smartphone call!');
-	    } else {
-	    	$('#m').text('Smartphone is not on the database!');
-	    }
-	  });
-
-	  $(document).ready(function() {
-		var key = Math.floor((Math.random() * 999999999) + 1);
-		console.log('Random key: ' + key);
-		socket.emit('fromClient', {k:key});
-		console.log('Random key sent to server: ' + key);
-
-		$('#qrcode').qrcode({
-			text:'http://localhost:9000/qrcode.html?key=' + key,
-			width:256,
-			height:256,
-			background:'#fff',
-			foreground:'#000'
+		socket.on('ping', function (data) {
+			console.log('Returned from server: ' + data.msg);
 		});
 
-	  });
+		socket.on('sync', function (data) {
+			console.log('Returned from server: ' + data.ok);
+			if (data.ok === 'true') {
+				$('#m').text('Received a smartphone call!');
+				window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+			} else {
+				$('#m').text('Smartphone is not on the database!');
+			}
+		});
+
+		$(document).ready(function () {
+			var key = Math.floor((Math.random() * 999999999) + 1);
+			console.log('Random key: ' + key);
+			socket.emit('fromClient', { k: key });
+			console.log('Random key sent to server: ' + key);
+
+			$('#qrcode').qrcode({
+				text: 'http://192.168.47.123:9000/qrcode.html?key=' + key,
+				width: 256,
+				height: 256,
+				background: '#fff',
+				foreground: '#000'
+			});
+
+		});
 	</script>
 
+
 </head>
+
 <body>
-	<h1>WebSockets Study</h1>
+	<div class="titletext">
+		
+			<h1>Welcome! Please scan this QR Code</h1>
+		
+		<center>
+			<div id="qrcode"></div>
+		</center>
+		<center>
+			<h1 id="m" style="font-size:40px;font-weight: 100;">Waiting for QR to be scanned<span id="wait">.</span>
+			</h1>
+		</center>
+	</div>
 
-	<div id="qrcode"></div>
 
-	<h2 id="m">Waiting for mobile phone...</h2>
+
+	
+
 </body>
+
 </html>
+<script src='move.js'></script>
+<script>
+	move('.titletext')
+  .set('margin-left', 1000)
+  .end();
+</script>
+
+<style>
+	h1 {
+		font-size: 50px;
+		font-family: 'Rowdies', cursive;
+
+	}
+
+	body {
+		background: #4c268f;
+		color: #99eeb4;
+	}
+
+	.titletext {
+		margin: 0;
+
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, -50%)
+	}
+</style>
